@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CleanArch.Domain", "CleanArch.Domain", "{42D04420-44C6-11EA-AD4B-298101953916}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CleanArch.Application", "CleanArch.Application", "{57E76FA0-44C6-11EA-AD4B-298101953916}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CleanArch.Infra.Data", "CleanArch.Infra.Data", "{5F454510-44C6-11EA-AD4B-298101953916}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CleanArch.Infra.IoC", "CleanArch.Infra.IoC", "{66F495E0-44C6-11EA-AD4B-298101953916}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CleanArch.UI.Mvc", "CleanArch.UI.Mvc", "{71133900-44C6-11EA-AD4B-298101953916}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArch.UI.Mvc", "CleanArch.UI.Mvc\CleanArch.UI.Mvc.csproj", "{F47451E0-4A44-4F42-8C56-B94C356EAF21}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Debug|x64.Build.0 = Debug|Any CPU
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Debug|x86.Build.0 = Debug|Any CPU
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Release|x64.ActiveCfg = Release|Any CPU
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Release|x64.Build.0 = Release|Any CPU
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Release|x86.ActiveCfg = Release|Any CPU
+		{F47451E0-4A44-4F42-8C56-B94C356EAF21}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
