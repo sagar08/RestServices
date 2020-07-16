@@ -1,1 +1,9 @@
 .vscode
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
+JWTAuthenticationAndAuthorizationWebAPI\.vscode
+DotnetCoreCleanArchitecture\.vscode
