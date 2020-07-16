@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace JWTAuthenticationAndAuthorizationWebAPI.Authentication
 {
+    /// <summary>
+    /// Register Model
+    /// </summary>
     public class RegisterModel
     {
         [Required(ErrorMessage = "User name is required")]

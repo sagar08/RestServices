@@ -1,5 +1,8 @@
 namespace JWTAuthenticationAndAuthorizationWebAPI.Authentication
 {
+    /// <summary>
+    /// Response Message
+    /// </summary>
     public class Response
     {
         public string Status { get; set; }

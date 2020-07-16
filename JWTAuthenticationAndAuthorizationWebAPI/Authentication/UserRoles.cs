@@ -1,5 +1,8 @@
 namespace JWTAuthenticationAndAuthorizationWebAPI.Authentication
 {
+    /// <summary>
+    /// User Roles
+    /// </summary>
     public static class UserRoles
     {
         public const string Admin = "admin";

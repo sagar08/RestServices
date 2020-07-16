@@ -13,6 +13,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace JWTAuthenticationAndAuthorizationWebAPI.Controllers
 {
+    /// <summary>
+    /// Authenticate Controller
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthenticateController : ControllerBase
@@ -21,6 +24,12 @@ namespace JWTAuthenticationAndAuthorizationWebAPI.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
+        /// <summary>
+        /// Authenticate Constructor
+        /// </summary>
+        /// <param name="userManager"></param>
+        /// <param name="roleManager"></param>
+        /// <param name="configuration"></param>
         public AuthenticateController(UserManager<ApplicationUser> userManager,
                                     RoleManager<IdentityRole> roleManager,
                                     IConfiguration configuration)
@@ -30,10 +39,22 @@ namespace JWTAuthenticationAndAuthorizationWebAPI.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Login Authentication api
+        /// </summary>
+        /// <param name="model">login model Sagar/Test@123</param>
+        /// <returns>JWT Token</returns>
+        /// <response code="201">Returns a valid token</response>
+        /// <response code="400">Requested object is null or empty</response> 
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user == null) return BadRequest();
 
@@ -69,10 +90,22 @@ namespace JWTAuthenticationAndAuthorizationWebAPI.Controllers
             });
         }
 
+        /// <summary>
+        /// Register new user
+        /// </summary>
+        /// <param name="model">Registration model</param>
+        /// <returns>New created user</returns>
+        /// <response code="201">Returns a newly created user</response>
+        /// <response code="400">Requested object is null or empty</response> 
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var userExists = await _userManager.FindByNameAsync(model.UserName);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError,
@@ -131,6 +164,10 @@ namespace JWTAuthenticationAndAuthorizationWebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Add roles in database if not exists
+        /// </summary>
+        /// <returns></returns>
         private async Task AddRolesInDatabaseIfNotExists()
         {
             if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))

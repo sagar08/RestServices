@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using JWTAuthenticationAndAuthorizationWebAPI.Authentication;
@@ -16,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace JWTAuthenticationAndAuthorizationWebAPI
 {
@@ -65,6 +68,8 @@ namespace JWTAuthenticationAndAuthorizationWebAPI
             });
 
             // Adding Swagger
+            ConfigureSwagger(services);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +90,75 @@ namespace JWTAuthenticationAndAuthorizationWebAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            // Swagger Configuration in API
+            app.UseSwagger();
+            app.UseSwaggerUI(x =>
+            {
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+            });
+
+        }
+
+        /// <summary>
+        /// Configure Swagger 
+        /// </summary>
+        /// <param name="services"></param>
+        private static void ConfigureSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(options =>
+            {
+                // Set the comments summary of api methods
+                // Note: Add below line in .csproj inside PropertyGroup
+                // <GenerateDocumentationFile>true</GenerateDocumentationFile>    
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+
+                //Generate the Default UI of Swagger Documentation 
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Title:JWT Token Authentication API",
+                    Version = "Version: v1",
+                    Description = "Description: JWT Authentication & Authorization with ASP.NET Core Identity and Swagger documentation with Authorization.",
+                    TermsOfService = new Uri("https://app.swaggerhub.com/help/index"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Sagar Khairnar",
+                        Email = "sagarkhairnar@test.com",
+                        Url = new Uri("https://twitter.com/sagarkhairnar"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "JWT Token Authentication API",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                });
+
+                // Enable authorization using Swagger (JWT)  
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement{
+                    {
+                        new OpenApiSecurityScheme{
+                            Reference = new OpenApiReference{
+                                Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
+
             });
         }
     }
