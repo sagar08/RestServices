@@ -1,0 +1,74 @@
+[
+  {
+    "RoleName": "Super Admin",
+    "CanCreate": true,
+    "CanDelete": true,
+    "CanApprove": true,
+    "CanView": true,
+    "CreatedBy": 1,
+    "CreatedDate": "Wednesday, August 12, 2020 8:39 AM"
+  },
+  {
+    "RoleName": "System Admin",
+    "CanCreate": true,
+    "CanDelete": true,
+    "CanApprove": true,
+    "CanView": true,
+    "CreatedBy": 1,
+    "CreatedDate": "Wednesday, August 12, 2020 8:39 AM"
+  },
+  {
+    "RoleName": "Regional Manager",
+    "CanCreate": false,
+    "CanDelete": false,
+    "CanApprove": true,
+    "CanView": true,
+    "CreatedBy": 1,
+    "CreatedDate": "Tuesday, August 18, 2020 2:15 AM"
+  },
+  {
+    "RoleName": "Department Manager",
+    "CanCreate": false,
+    "CanDelete": false,
+    "CanApprove": true,
+    "CanView": true,
+    "CreatedBy": 1,
+    "CreatedDate": "Tuesday, August 18, 2020 2:15 AM"
+  },
+  {
+    "RoleName": "Reviewer",
+    "CanCreate": false,
+    "CanDelete": false,
+    "CanApprove": true,
+    "CanView": true,
+    "CreatedBy": 1,
+    "CreatedDate": "Tuesday, August 18, 2020 2:15 AM"
+  },
+  {
+    "RoleName": "Owner",
+    "CanCreate": true,
+    "CanDelete": true,
+    "CanApprove": false,
+    "CanView": true,
+    "CreatedBy": 1,
+    "CreatedDate": "Tuesday, August 18, 2020 2:15 AM"
+  },
+  {
+    "RoleName": "Team Member",
+    "CanCreate": true,
+    "CanDelete": false,
+    "CanApprove": false,
+    "CanView": true,
+    "CreatedBy": 1,
+    "CreatedDate": "Tuesday, August 18, 2020 2:15 AM"
+  },
+  {
+    "RoleName": "Customer",
+    "CanCreate": true,
+    "CanDelete": true,
+    "CanApprove": true,
+    "CanView": true,
+    "CreatedBy": 1,
+    "CreatedDate": "Tuesday, August 18, 2020 2:15 AM"
+  }
+]
