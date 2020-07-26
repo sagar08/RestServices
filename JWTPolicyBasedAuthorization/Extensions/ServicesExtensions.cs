@@ -11,6 +11,7 @@ using System.Reflection;
 using System;
 using Microsoft.OpenApi.Models;
 using System.IO;
+using JWTPolicyBasedAuthorization.Infrastructure;
 
 namespace JWTPolicyBasedAuthorization.Extensions
 {
@@ -67,6 +68,36 @@ namespace JWTPolicyBasedAuthorization.Extensions
 
         }
 
+
+        public static void ConfigureAuthorizationPolicy(this IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Constants.Policy.AdminPolicy,
+                        policy => policy.RequireRole(
+                            Constants.Role.SuperAdmin,
+                            Constants.Role.SystemAdmin)
+                        );
+
+                options.AddPolicy(Constants.Policy.ManagerPolicy, 
+                        policy => policy.RequireRole(
+                            Constants.Role.RegionalManager, 
+                            Constants.Role.DepartmentManager)
+                        );
+
+                options.AddPolicy(Constants.Policy.UserPolicy, 
+                        policy => policy.RequireRole(
+                            Constants.Role.Reviewer,
+                            Constants.Role.Owner, 
+                            Constants.Role.TeamMember)
+                        );
+
+                options.AddPolicy(Constants.Permission.CanCreate, policy => policy.RequireClaim(Constants.Permission.CanCreate));
+                options.AddPolicy(Constants.Permission.CanDelete, policy => policy.RequireClaim(Constants.Permission.CanDelete));
+                options.AddPolicy(Constants.Permission.CanApprove, policy => policy.RequireClaim(Constants.Permission.CanApprove));
+                options.AddPolicy(Constants.Permission.CanView, policy => policy.RequireClaim(Constants.Permission.CanView));
+            });
+        }
         public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>
@@ -96,7 +127,7 @@ namespace JWTPolicyBasedAuthorization.Extensions
                         Name = "JWT Token Authentication API",
                         Url = new Uri("https://example.com/license"),
                     }
-                });
+                });                
 
                 // Enable authorization using Swagger (JWT)  
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()

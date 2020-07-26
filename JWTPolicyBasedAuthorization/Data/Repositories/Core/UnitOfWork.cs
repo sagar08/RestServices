@@ -8,7 +8,7 @@ namespace JWTPolicyBasedAuthorization.Data.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private ITransaction _transaction;
+        //private ITransaction _transaction;
         private ApplicationDbContext _dbContext;
         private IUserRepository _user;
 

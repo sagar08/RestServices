@@ -16,8 +16,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace JWTPolicyBasedAuthorization.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         #region Member Variables
@@ -76,6 +76,18 @@ namespace JWTPolicyBasedAuthorization.Controllers
             foreach (var role in roles)
             {
                 authClaims.Add(new Claim(ClaimTypes.Role, role.RoleName));
+
+                if (role.CanCreate)
+                    authClaims.Add(new Claim("CanCreate", true.ToString()));
+
+                if (role.CanDelete)
+                    authClaims.Add(new Claim("CanDelete", true.ToString()));
+
+                if (role.CanApprove)
+                    authClaims.Add(new Claim("CanApprove", true.ToString()));
+
+                if (role.CanView)
+                    authClaims.Add(new Claim("CanView", true.ToString()));
             }
 
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));

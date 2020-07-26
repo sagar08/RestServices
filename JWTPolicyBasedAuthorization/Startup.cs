@@ -36,6 +36,10 @@ namespace JWTPolicyBasedAuthorization
 
             // Add Swagger Documentation
             services.ConfigureSwagger();
+
+            services.AddCors();
+
+            services.ConfigureAuthorizationPolicy();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

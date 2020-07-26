@@ -1,39 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using JWTPolicyBasedAuthorization.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace JWTPolicyBasedAuthorization.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
+    [Authorize(Policy = Constants.Policy.AdminPolicy)]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        [Authorize(Policy = Constants.Permission.CanCreate)]
+        [HttpGet]
+        [Route("HasCreatePermission")]
+        public string HasCreatePermission()
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
+            return "Has Create Permission";
         }
 
+        [Authorize(Policy = Constants.Permission.CanDelete)]
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [Route("HasDeletePermission")]
+        public string HasDeletePermission()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return "Has Delete Permission";
+        }
+
+        [Authorize(Policy = Constants.Permission.CanApprove)]
+        [HttpGet]
+        [Route("HasApprovePermission")]
+        public string HasApprovePermission()
+        {
+            return "Has Approve Permission";
+        }
+
+        [Authorize(Policy = Constants.Permission.CanView)]
+        [HttpGet]
+        [Route("HasViewPermission")]
+
+        public string HasViewPermission()
+        {
+            return "Has View Permission";
         }
     }
 }
