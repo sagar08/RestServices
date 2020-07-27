@@ -128,7 +128,7 @@ namespace JWTPolicyBasedAuthorization.Controllers
             if (user == null)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                new ResponseDto
+                new ErrorDto
                 {
                     Status = "Error",
                     Message = $"User with the name {userDto.UserName} already exists!"
@@ -145,9 +145,9 @@ namespace JWTPolicyBasedAuthorization.Controllers
             if (result != null)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                new ResponseDto
+                new ErrorDto
                 {
-                    Status = "",
+                    Status = "Error",
                     Message = $"User creation failed! Please check user details and try again."
                 });
             }
@@ -155,7 +155,7 @@ namespace JWTPolicyBasedAuthorization.Controllers
             return Ok(
                 new ResponseDto<RegisterUserDto>
                 {
-                    ResponseData = userDto,
+                    Data = userDto,
                     Status = "Success",
                     Message = "User created successfully!"
                 }

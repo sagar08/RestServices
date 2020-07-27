@@ -51,12 +51,12 @@ namespace JWTPolicyBasedAuthorization.Data
         {
             modelBuilder.Entity<Product>()
             .HasOne<ConfigValue>(p => p.Brand)
-            .WithOne()
+            .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Product>()
             .HasOne<ConfigValue>(p => p.Category)
-            .WithOne()
+            .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
 
         }

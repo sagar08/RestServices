@@ -1,15 +1,18 @@
 namespace JWTPolicyBasedAuthorization.Dtos
 {
-    public class ResponseDto<T>
+    public abstract class ResponseDto
     {
-        public T ResponseData { get; set; }
         public string Status { get; set; }
         public string Message { get; set; }
     }
 
-    public class ResponseDto
+    public class ResponseDto<T>: ResponseDto
     {
-        public string Status { get; set; }
-        public string Message { get; set; }
+        public T Data { get; set; }        
+    }
+
+    public class ErrorDto : ResponseDto
+    {
+        public string Stack { get; set; }
     }
 }

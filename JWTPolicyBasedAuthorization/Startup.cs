@@ -1,3 +1,4 @@
+using AutoMapper;
 using JWTPolicyBasedAuthorization.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,7 +25,7 @@ namespace JWTPolicyBasedAuthorization
             services.ConfigureDatabaseConnection(Configuration);
 
             // Add Repository
-            services.ConfigureRepositoryWrapper();
+            services.ConfigureRepositories();
 
             // Add Seed Data
             services.ConfigureSeedData();
@@ -37,9 +38,14 @@ namespace JWTPolicyBasedAuthorization
             // Add Swagger Documentation
             services.ConfigureSwagger();
 
-            services.AddCors();
-
+            // Policy based authorization
             services.ConfigureAuthorizationPolicy();
+
+            // Add Auto mapper
+            services.AddAutoMapper(typeof(Startup));
+
+            // Add Cord
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

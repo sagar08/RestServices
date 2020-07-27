@@ -1,0 +1,59 @@
+[
+  {
+    "Name": "Men's Shirt",
+    "BrandId": 5,
+    "CategoryId": 9,
+    "ManufacturerPartNumber": "M-38",
+    "Specifications": "Mens shirt, Size: M-38",
+    "Price": 699
+  },
+  {
+    "Name": "Men's Party Shirt",
+    "BrandId": 5,
+    "CategoryId": 8,
+    "ManufacturerPartNumber": "M-38",
+    "Specifications": "Mens shirt, Size: M-38",
+    "Price": 1099
+  },
+  {
+    "Name": "Men's Jens",
+    "BrandId": 6,
+    "CategoryId": 9,
+    "ManufacturerPartNumber": "M-40",
+    "Specifications": "Mens shirt, Size: M-40",
+    "Price": 1299
+  },
+  {
+    "Name": "Men's Half Sleeves Shirt",
+    "BrandId": 6,
+    "CategoryId": 9,
+    "ManufacturerPartNumber": "M-40",
+    "Specifications": "Mens shirt, Size: M-40",
+    "Price": 599
+  },
+  {
+    "Name": "Men's Half Sleeves Shirt",
+    "BrandId": 5,
+    "CategoryId": 8,
+    "ManufacturerPartNumber": "M-39",
+    "Specifications": "Mens shirt, Size: M-39",
+    "Price": 1099
+  },
+  {
+    "Name": "Men's Shirt",
+    "BrandId": 5,
+    "CategoryId": 10,
+    "ManufacturerPartNumber": "M-38",
+    "Specifications": "Mens shirt, Size: M-38",
+    "Price": 699
+  },
+  {
+    "Name": "Men's Jens",
+    "BrandId": 7,
+    "CategoryId": 8,
+    "ManufacturerPartNumber": "M-38",
+    "Specifications": "Mens shirt, Size: M-38",
+    "Price": 1599
+  },
+  
+]

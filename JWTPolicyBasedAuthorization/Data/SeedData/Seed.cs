@@ -6,12 +6,13 @@ using JWTPolicyBasedAuthorization.Data.Repositories;
 using JWTPolicyBasedAuthorization.Dtos;
 using JWTPolicyBasedAuthorization.Infrastructure;
 using JWTPolicyBasedAuthorization.Models;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace JWTPolicyBasedAuthorization.Data.SeedData
 {
     public class Seed
-    {
+    {        
         #region Public Methods
         public static void SeedRoles(ApplicationDbContext context)
         {
@@ -59,6 +60,18 @@ namespace JWTPolicyBasedAuthorization.Data.SeedData
             }
             context.SaveChanges();
         }
+
+        public static void SeedProducts(ApplicationDbContext context)
+        {
+            if (context.Products.Any()) return;
+
+            var jsonData = System.IO.File.ReadAllText(@"Data\SeedData\ProductSeedData.json");
+            var products = JsonConvert.DeserializeObject<Product[]>(jsonData);
+
+            context.Products.AddRange(products);
+            context.SaveChanges();            
+        }
+
         #endregion
 
         #region Private Methods

@@ -29,11 +29,12 @@ namespace JWTPolicyBasedAuthorization.Extensions
             );
         }
 
-        public static void ConfigureRepositoryWrapper(this IServiceCollection services)
+        public static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
 
         public static void ConfigureSeedData(this IServiceCollection services)
@@ -79,16 +80,16 @@ namespace JWTPolicyBasedAuthorization.Extensions
                             Constants.Role.SystemAdmin)
                         );
 
-                options.AddPolicy(Constants.Policy.ManagerPolicy, 
+                options.AddPolicy(Constants.Policy.ManagerPolicy,
                         policy => policy.RequireRole(
-                            Constants.Role.RegionalManager, 
+                            Constants.Role.RegionalManager,
                             Constants.Role.DepartmentManager)
                         );
 
-                options.AddPolicy(Constants.Policy.UserPolicy, 
+                options.AddPolicy(Constants.Policy.UserPolicy,
                         policy => policy.RequireRole(
                             Constants.Role.Reviewer,
-                            Constants.Role.Owner, 
+                            Constants.Role.Owner,
                             Constants.Role.TeamMember)
                         );
 
@@ -127,7 +128,7 @@ namespace JWTPolicyBasedAuthorization.Extensions
                         Name = "JWT Token Authentication API",
                         Url = new Uri("https://example.com/license"),
                     }
-                });                
+                });
 
                 // Enable authorization using Swagger (JWT)  
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()

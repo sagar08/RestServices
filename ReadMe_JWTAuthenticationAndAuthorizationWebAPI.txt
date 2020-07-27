@@ -9,6 +9,7 @@ Add following Nuget Packages
  - Microsoft.AspNetCore.Authentication.JwtBearer
  - Microsoft.AspNetCore.Mvc.NewtonsoftJson
  - Microsoft.EntityFrameworkCore.Tools.DotNet
+ - AutoMapper.Extensions.Microsoft.DependencyInjection
 
 eg: dotnet add pacakge Microsoft.EntityFrameworkCore.Tools.DotNet
 
