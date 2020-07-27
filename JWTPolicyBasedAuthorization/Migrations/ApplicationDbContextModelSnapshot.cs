@@ -69,6 +69,57 @@ namespace JWTPolicyBasedAuthorization.Migrations
                     b.ToTable("ConfigValue");
                 });
 
+            modelBuilder.Entity("JWTPolicyBasedAuthorization.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ManufacturerPartNumber")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<int?>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Specifications")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId")
+                        .IsUnique();
+
+                    b.HasIndex("CategoryId")
+                        .IsUnique();
+
+                    b.ToTable("Product");
+                });
+
             modelBuilder.Entity("JWTPolicyBasedAuthorization.Models.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -204,6 +255,21 @@ namespace JWTPolicyBasedAuthorization.Migrations
                         .WithMany("ConfigValues")
                         .HasForeignKey("KeyId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JWTPolicyBasedAuthorization.Models.Product", b =>
+                {
+                    b.HasOne("JWTPolicyBasedAuthorization.Models.ConfigValue", "Brand")
+                        .WithOne()
+                        .HasForeignKey("JWTPolicyBasedAuthorization.Models.Product", "BrandId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("JWTPolicyBasedAuthorization.Models.ConfigValue", "Category")
+                        .WithOne()
+                        .HasForeignKey("JWTPolicyBasedAuthorization.Models.Product", "CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

@@ -1,6 +1,6 @@
 namespace JWTPolicyBasedAuthorization.Models
 {
-    public class UserRoles:BaseModel
+    public class UserRoles:BaseModelWithDelete
     {
         public int UserId { get; set; }
         public virtual User User { get; set; }

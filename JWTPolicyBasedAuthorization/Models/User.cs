@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JWTPolicyBasedAuthorization.Models
 {
-    public class User : BaseModel
+    public class User : BaseModelWithDelete
     {
         public User()
         {
@@ -15,10 +15,10 @@ namespace JWTPolicyBasedAuthorization.Models
         [Required]
         [StringLength(20, MinimumLength = 4, ErrorMessage = "User name must be between 4 to 20 characters")]
         public string UserName { get; set; }
-        
+
         [Required]
         public byte[] PasswordHash { get; set; }
-        
+
         [Required]
         public byte[] PasswordSalt { get; set; }
 
