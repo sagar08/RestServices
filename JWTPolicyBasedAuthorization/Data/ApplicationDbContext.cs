@@ -13,13 +13,15 @@ namespace JWTPolicyBasedAuthorization.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
+        public DbSet<ConfigKey> ConfigKeys { get; set; }
+        public DbSet<ConfigValue> ConfigValues { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.RemovePluralizingTableNameConvention();
             UserRolesRelation(modelBuilder);
+            ConfigKeyValueRelation(modelBuilder);
         }
-
 
         private void UserRolesRelation(ModelBuilder modelBuilder)
         {
@@ -32,6 +34,14 @@ namespace JWTPolicyBasedAuthorization.Data
             .HasOne<Role>(ur => ur.Role)
             .WithMany(r => r.UserRoles)
             .HasForeignKey(ur => ur.RoleId);
+        }
+
+        private void ConfigKeyValueRelation(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ConfigValue>()
+            .HasOne<ConfigKey>(cv=> cv.ConfigKey)
+            .WithMany(ck=>ck.ConfigValues)
+            .HasForeignKey(cv=>cv.KeyId);
         }
     }
 }

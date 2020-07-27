@@ -1,0 +1,80 @@
+[
+  {
+    "Key": "Group",
+    "Description": "Name of the Parent group to define user roles",
+    "ConfigValues": [
+      {
+        "Value": "Admin",
+        "Description": "Admin Group",
+        "Rank": 1
+      },
+      {
+        "Value": "Manager",
+        "Description": "Manager Group",
+        "Rank": 2
+      },
+      {
+        "Value": "User",
+        "Description": "User Group",
+        "Rank": 3
+      },
+      {
+        "Value": "Customer",
+        "Description": "Customer Group",
+        "Rank": 4
+      }
+    ]
+  },
+  {
+    "Key": "Brand",
+    "Description": "Graments Brand in India",
+    "ConfigValues": [
+      {
+        "Value": "Peter England",
+        "Description": "",
+        "Rank": 1
+      },
+      {
+        "Value": "Park Avenue",
+        "Description": "",
+        "Rank": 2
+      },
+      {
+        "Value": "Allen Solly",
+        "Description": "",
+        "Rank": 3
+      }
+    ]
+  },
+  {
+    "Key": "Categories",
+    "Description": "Categories names in garments types",
+    "ConfigValues": [
+      {
+        "Value": "Party",
+        "Description": "Party (fashion wear)",
+        "Rank": 1
+      },
+      {
+        "Value": "Active",
+        "Description": "Active (regular wear)",
+        "Rank": 2
+      },
+      {
+        "Value": "Evening gown",
+        "Description": "Evening gown (outfit)",
+        "Rank": 3
+      },
+      {
+        "Value": "Night",
+        "Description": "Night (soft fit)",
+        "Rank": 4
+      },
+      {
+        "Value": "Lingerie",
+        "Description": "Lingerie (inner wear, sleep wear)",
+        "Rank": 5
+      }
+    ]
+  }
+]

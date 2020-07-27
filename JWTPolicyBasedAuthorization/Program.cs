@@ -25,6 +25,7 @@ namespace JWTPolicyBasedAuthorization
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
                     context.Database.Migrate();
+                    Seed.SeedConfigKeyValues(context);
                     Seed.SeedRoles(context);
                     Seed.SeedSuperUser(context);
                 }

@@ -12,6 +12,7 @@ namespace JWTPolicyBasedAuthorization.Data.SeedData
 {
     public class Seed
     {
+        #region Public Methods
         public static void SeedRoles(ApplicationDbContext context)
         {
             if (context.Roles.Any()) return;
@@ -19,11 +20,6 @@ namespace JWTPolicyBasedAuthorization.Data.SeedData
             var rolesJsonData = System.IO.File.ReadAllText(@"Data\SeedData\RolesMasterSeedData.json");
             var roles = JsonConvert.DeserializeObject<List<Role>>(rolesJsonData);
 
-            // using (IUnitOfWork work = new UnitOfWork(context))
-            // {
-            //     new RoleRepository(context).CreateRoles(roles.ToArray());
-            //     work.SaveChangesAsync();
-            // }
             foreach (var role in roles)
             {
                 context.Roles.Add(role);
@@ -48,7 +44,24 @@ namespace JWTPolicyBasedAuthorization.Data.SeedData
             task.Wait();
         }
 
+        public static void SeedConfigKeyValues(ApplicationDbContext context)
+        {
+            if (context.ConfigKeys.Any()) return;
 
+            var configJsonData = System.IO.File.ReadAllText(@"Data\SeedData\ConfigKeyValuesMasterSeedData.json");
+            var configKeys = JsonConvert.DeserializeObject<List<ConfigKey>>(configJsonData);
+
+            foreach (var key in configKeys)
+            {
+                context.ConfigKeys.Add(key);
+                // foreach (var value in key.ConfigValues)
+                //     key.ConfigValues.Add(value);                
+            }
+            context.SaveChanges();
+        }
+        #endregion
+
+        #region Private Methods
         private static User GetUser(RegisterUserDto userDto)
         {
             User newUser = new User
@@ -63,5 +76,6 @@ namespace JWTPolicyBasedAuthorization.Data.SeedData
 
             return newUser;
         }
+        #endregion
     }
 }
