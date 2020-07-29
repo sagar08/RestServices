@@ -10,9 +10,11 @@ namespace JWTPolicyBasedAuthorization.Data.Repositories
     {
         //private ITransaction _transaction;
         private ApplicationDbContext _dbContext;
-        private IUserRepository _user;
+        private IUserRepository _users;
+        private IProductRepository _products;
 
-        IUserRepository IUnitOfWork.User => _user ?? new UserRepository(_dbContext);
+        IUserRepository IUnitOfWork.Users => _users ?? new UserRepository(_dbContext);
+        IProductRepository IUnitOfWork.Products => _products ?? new ProductRepository(_dbContext);
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {

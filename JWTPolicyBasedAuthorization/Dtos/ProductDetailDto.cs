@@ -2,8 +2,8 @@ namespace JWTPolicyBasedAuthorization.Dtos
 {
     public class ProductDetailDto: ProductDto
     {
-        public string Brand { get; set; }
-        public string Category { get; set; }
+        public string BrandName { get; set; }
+        public string CategoryName { get; set; }
         
     }
 }

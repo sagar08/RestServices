@@ -12,6 +12,8 @@ using System;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using JWTPolicyBasedAuthorization.Infrastructure;
+using JWTPolicyBasedAuthorization.Models;
+using JWTPolicyBasedAuthorization.Dtos;
 
 namespace JWTPolicyBasedAuthorization.Extensions
 {
@@ -68,7 +70,6 @@ namespace JWTPolicyBasedAuthorization.Extensions
             });
 
         }
-
 
         public static void ConfigureAuthorizationPolicy(this IServiceCollection services)
         {
@@ -154,6 +155,17 @@ namespace JWTPolicyBasedAuthorization.Extensions
                 });
 
             });
+        }
+
+        public static void ConfigureLoggerService(this IServiceCollection services)
+        {
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+        }
+
+        public static void ConfigureActionFilters(this IServiceCollection services)
+        {
+            services.AddScoped<ValidationBadRequestFilter>();
+            services.AddScoped<AsyncValidationBadRequestFilter>();
         }
     }
 }

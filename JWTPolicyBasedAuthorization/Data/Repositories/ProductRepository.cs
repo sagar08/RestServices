@@ -18,12 +18,18 @@ namespace JWTPolicyBasedAuthorization.Data.Repositories
 
         public async Task<Product> GetProductById(int id)
         {
-            return await Task.Run(() => FindById(id));
+            return await _dbContext.Products
+                        .Include(x => x.Brand)
+                        .Include(c => c.Category)
+                        .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<Product>> GetProducts()
         {
-            return await FindAll().ToListAsync();
+            return await _dbContext.Products
+                        .Include(x => x.Brand)
+                        .Include(c => c.Category)
+                        .ToListAsync();
         }
 
         public async Task<List<Product>> GetProducts(Expression<Func<Product, bool>> expression)

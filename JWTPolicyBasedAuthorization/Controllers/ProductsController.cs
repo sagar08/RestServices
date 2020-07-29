@@ -1,13 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using JWTPolicyBasedAuthorization.Data.Contracts;
 using JWTPolicyBasedAuthorization.Dtos;
 using JWTPolicyBasedAuthorization.Infrastructure;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using JWTPolicyBasedAuthorization.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace JWTPolicyBasedAuthorization.Controllers
 {
@@ -17,16 +16,18 @@ namespace JWTPolicyBasedAuthorization.Controllers
     public class ProductsController : ControllerBase
     {
         #region Member Variables
+        private readonly ILoggerManager _logger;
         private readonly IMapper _mapper;
-        private readonly IProductRepository _productRepo;
+        private readonly IUnitOfWork _repository;
 
         #endregion
 
         #region Constructor
-        public ProductsController(IMapper mapper, IProductRepository repo)
+        public ProductsController(ILoggerManager logger, IMapper mapper, IUnitOfWork repo)
         {
+            _logger = logger;
             _mapper = mapper;
-            _productRepo = repo;
+            _repository = repo;
         }
         #endregion
 
@@ -36,12 +37,7 @@ namespace JWTPolicyBasedAuthorization.Controllers
         //[Route("")]
         public async Task<IActionResult> Get()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            var products = await _productRepo.GetProducts();
+            var products = await _repository.Products.GetProducts();
             var data = _mapper.Map<IEnumerable<ProductDetailDto>>(products);
 
             return Ok(new ResponseDto<IEnumerable<ProductDetailDto>>
@@ -53,16 +49,11 @@ namespace JWTPolicyBasedAuthorization.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Policy = Constants.Permission.CanView)]
+        //[Authorize(Policy = Constants.Permission.CanView)]        
         [Route("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            var product = await _productRepo.GetProductById(id);
+            var product = await _repository.Products.GetProductById(id);
 
             if (product == null)
             {
@@ -77,6 +68,63 @@ namespace JWTPolicyBasedAuthorization.Controllers
                 Status = "OK",
                 Message = $"Records found {product.Name}"
             });
+        }
+
+        [HttpPost]
+        [ServiceFilter(typeof(AsyncValidationBadRequestFilter))]
+        public async Task<IActionResult> CreateProduct([FromBody] ProductDto productDto)
+        {
+            var product = _mapper.Map<Product>(productDto);
+
+            _repository.Products.CreateProduct(product);
+            await _repository.SaveChangesAsync();
+
+            //var productDetail = _repository.Products.GetProductById(product.Id);
+            var productDetailDto = _mapper.Map<ProductDetailDto>(product);
+
+            return Created("GetProduct",
+                new ResponseDto<ProductDetailDto>
+                {
+                    Data = productDetailDto,
+                    Status = "Success",
+                    Message = "Product created successfully!"
+                }
+            );
+        }
+
+        [HttpPut]
+        //[ServiceFilter(typeof(AsyncValidateEntityExistsFilter<ProductDto>), Order = 2)]
+        [ServiceFilter(typeof(AsyncValidationBadRequestFilter), Order = 1)]
+        public async Task<IActionResult> UpdateProduct([FromBody] ProductDto productDto)
+        {
+            #region commented code
+            // if (productDto == null)
+            // {
+            //     _logger.LogError("Object is null");
+            //     return BadRequest("Object is null");
+            // }
+
+            // if (!ModelState.IsValid)
+            // {
+            //     _logger.LogError("Invalid product object sent from client.");
+            //     return BadRequest("Invalid model object");
+            // }
+
+            #endregion
+            
+            var productExists = _repository.Products.GetProductById(productDto.Id);
+            if(productExists == null)
+            {
+                return NotFound();
+            }
+            var product = _mapper.Map<Product>(productDto);
+
+            _repository.Products.UpdateProduct(product);
+            await _repository.SaveChangesAsync();
+
+            var productDetail = _mapper.Map<ProductDetailDto>(product);
+
+            return NoContent();
         }
         #endregion
     }

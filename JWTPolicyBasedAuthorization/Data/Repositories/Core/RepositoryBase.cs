@@ -51,6 +51,7 @@ namespace JWTPolicyBasedAuthorization.Data.Repositories
 
         public void Update(T entity)
         {
+            dbContext.Entry(entity).State = EntityState.Modified;
             dbContext.Set<T>().Update(entity);
         }
 

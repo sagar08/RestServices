@@ -12,7 +12,7 @@ namespace JWTPolicyBasedAuthorization.Infrastructure
         public AutoMapperProfile()
         {
             ProdcutMapper();
-
+            ProdcutDetailMapper();
         }
 
         #endregion
@@ -21,10 +21,16 @@ namespace JWTPolicyBasedAuthorization.Infrastructure
 
         private void ProdcutMapper()
         {
-            CreateMap<Product, ProductDetailDto>()
-            .ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.Brand.Value))
-            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Value));
+            CreateMap<ProductDto, Product>();
         }
+
+        private void ProdcutDetailMapper()
+        {
+            CreateMap<Product,ProductDetailDto>()
+            .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Value))
+            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Value));
+        }
+
         #endregion
     }
 }

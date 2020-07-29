@@ -7,7 +7,9 @@ namespace JWTPolicyBasedAuthorization.Data.Contracts
     public interface IUnitOfWork : IDisposable
     {
         //ITransaction BeginTransaction(IsolationLevel level = IsolationLevel.Snapshot);
-        IUserRepository User { get; }
+        IUserRepository Users { get; }
+
+        IProductRepository Products {get;}
         Task<int> SaveChangesAsync();
         //void CommitTransaction();
         //void RollbackTransaction();

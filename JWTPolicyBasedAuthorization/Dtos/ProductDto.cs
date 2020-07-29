@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using JWTPolicyBasedAuthorization.Models;
 
 namespace JWTPolicyBasedAuthorization.Dtos
 {
-    public class ProductDto
+    public class ProductDto:IEntity
     {
         public int Id { get; set; }
         
