@@ -10,6 +10,7 @@ Add following Nuget Packages
  - Microsoft.AspNetCore.Mvc.NewtonsoftJson
  - Microsoft.EntityFrameworkCore.Tools.DotNet
  - AutoMapper.Extensions.Microsoft.DependencyInjection
+ - NLog.Extensions.Logging
 
 eg: dotnet add pacakge Microsoft.EntityFrameworkCore.Tools.DotNet
 
