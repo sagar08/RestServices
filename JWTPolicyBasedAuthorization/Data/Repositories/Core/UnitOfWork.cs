@@ -3,6 +3,7 @@ using JWTPolicyBasedAuthorization.Data.Contracts;
 using JWTPolicyBasedAuthorization.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System;
 
 namespace JWTPolicyBasedAuthorization.Data.Repositories
 {
@@ -11,9 +12,11 @@ namespace JWTPolicyBasedAuthorization.Data.Repositories
         //private ITransaction _transaction;
         private ApplicationDbContext _dbContext;
         private IUserRepository _users;
+        private IRoleRepository _roles;
         private IProductRepository _products;
 
         IUserRepository IUnitOfWork.Users => _users ?? new UserRepository(_dbContext);
+        IRoleRepository IUnitOfWork.Roles => _roles ?? new RoleRepository(_dbContext);
         IProductRepository IUnitOfWork.Products => _products ?? new ProductRepository(_dbContext);
 
         public UnitOfWork(ApplicationDbContext dbContext)
@@ -41,11 +44,11 @@ namespace JWTPolicyBasedAuthorization.Data.Repositories
         // {
         //     _transaction.Rollback();
         // }
-        
 
         public void Dispose()
         {
-            _dbContext = null;
-        }
+            _dbContext = null;            
+            GC.SuppressFinalize(_dbContext);
+        }        
     }
 }

@@ -26,7 +26,8 @@ namespace JWTPolicyBasedAuthorization
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            // Configure Health Check
+            services.ConfigureHealthCheck(Configuration);
             // Add Database connection
             services.ConfigureDatabaseConnection(Configuration);
 
@@ -81,6 +82,7 @@ namespace JWTPolicyBasedAuthorization
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("api/health");
                 endpoints.MapControllers();
             });
 

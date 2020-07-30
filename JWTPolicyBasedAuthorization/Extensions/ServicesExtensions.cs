@@ -167,5 +167,13 @@ namespace JWTPolicyBasedAuthorization.Extensions
             services.AddScoped<ValidationBadRequestFilter>();
             services.AddScoped<AsyncValidationBadRequestFilter>();
         }
+
+
+        public static void ConfigureHealthCheck(this IServiceCollection services, IConfiguration configuration)
+        {
+            var connString = configuration.GetConnectionString("DefaultConnectionString");
+            services.AddHealthChecks()
+            .AddCheck("Db Health",()=> HealthCheckProvider.CheckDb(connString));
+        }
     }
 }
