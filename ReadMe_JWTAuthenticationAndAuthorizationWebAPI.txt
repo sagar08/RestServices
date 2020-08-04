@@ -11,6 +11,8 @@ Add following Nuget Packages
  - Microsoft.EntityFrameworkCore.Tools.DotNet
  - AutoMapper.Extensions.Microsoft.DependencyInjection
  - NLog.Extensions.Logging
+ - Swashbuckle.AspNetCore
+ - Swashbuckle.AspNetCore.Swagger
 
 eg: dotnet add pacakge Microsoft.EntityFrameworkCore.Tools.DotNet
 
