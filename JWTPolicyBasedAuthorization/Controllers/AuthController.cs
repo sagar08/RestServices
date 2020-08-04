@@ -142,7 +142,7 @@ namespace JWTPolicyBasedAuthorization.Controllers
 
             var result = await _userRepo.RegisterUserAsync(newUser, role);
 
-            if (result != null)
+            if (result == null)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                 new ErrorDto
